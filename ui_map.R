@@ -1,15 +1,16 @@
 library(leaflet)
 
+# absolute panel: vessel input
+vessel_input <- numericInput("vessel", label = "Vessel Id", value = 332)
+# absolute panel: date input
+date_input <- dateRangeInput("dates", label = "Date Range", start = '2017-08-23', end = '2017-09-28')
+# start_date_input <- dateInput(inputId = 'start_date', label = 'Start Date', value = '2017-08-23')
+# end_date_input <- dateInput(inputId = 'end_date', label = 'End Date', value = '2017-09-28')
 
-# Choices for drop-downs
-vars <- c(
-  "Is SuperZIP?" = "superzip",
-  "Centile score" = "centile",
-  "College education" = "college",
-  "Median income" = "income",
-  "Population" = "adultpop"
-)
-
+# absolute panel: other input: display dec_area, poi
+other_layer <- checkboxGroupInput("check_group", 
+                                  label = "Other Layers", 
+                                  choices = list("poi" = 1, "dec_area" = 2))
 
 ui <- navbarPage("Superzip", id="nav",
 
@@ -27,20 +28,19 @@ ui <- navbarPage("Superzip", id="nav",
 
       # Shiny versions prior to 0.11 should use class = "modal" instead.
       absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-        draggable = TRUE, top = 60, left = 20, right = "auto", bottom = "auto",
-        width = 330, height = 330,
-
+        draggable = TRUE, top = 100, left = 50, right = "auto", bottom = "auto",
+        width = 330, height = 500,
+        # panel title.
         h2("Vessel Movement"),
-
-        selectInput("color", "Color", vars),
-        selectInput("size", "Size", vars, selected = "adultpop"),
-        conditionalPanel("input.color == 'superzip' || input.size == 'superzip'",
-          # Only prompt for threshold when coloring or sizing by superzip
-          numericInput("threshold", "SuperZIP threshold (top n percentile)", 5)
-        ),
-
-        plotOutput("histCentile", height = 200),
-        plotOutput("scatterCollegeIncome", height = 250)
+        vessel_input,
+        date_input,
+        # start_date_input,
+        # end_date_input,
+        submitButton("Submit"),
+        other_layer
+        # add plots within the panel.
+        # plotOutput("histCentile", height = 200),
+        # plotOutput("scatterCollegeIncome", height = 250)
       ),
 
       tags$div(id="cite",
