@@ -20,7 +20,7 @@ server <- function(input, output, session) {
                        lng = ~ lon,
                        popup = ~ poi_label,
                        data = poi[poi_type != 'Bulk', ],
-                       group='Liquid',
+                       group='Liquid POI',
                        clusterOptions = TRUE,,
                        stroke = FALSE,
                        fill = TRUE,
@@ -31,7 +31,7 @@ server <- function(input, output, session) {
                        lng = ~ lon,
                        popup = ~ poi_label,
                        data = poi[poi_type == 'Bulk'],
-                       group='Bulk',
+                       group='Bulk POI',
                        clusterOptions = TRUE,,
                        stroke = FALSE,
                        fill = TRUE,
@@ -41,9 +41,9 @@ server <- function(input, output, session) {
       # Layers control
       addLayersControl(
         baseGroups = c("Map (Default)", "Satellite"),
-        overlayGroups = c("Liquid", "Bulk"),
+        overlayGroups = c("Liquid POI", "Bulk POI"),
         options = layersControlOptions(collapsed = FALSE)) %>%
-      hideGroup(c("Liquid", "Bulk")) # hide two overlay layers first
+      hideGroup(c("Liquid POI", "Bulk POI")) # hide two overlay layers first
     
     # vessel icon setting
     
