@@ -12,13 +12,14 @@ other_layer <- checkboxGroupInput("check_group",
                                   label = "Other Layers", 
                                   choices = list("poi" = 1, "dec_area" = 2))
 
-ui <- navbarPage("Superzip", id="nav",
+ui <- navbarPage("Geographical \n Visualization", id="nav",
 
   tabPanel("Interactive map",
     div(class="outer",
 
       tags$head(
         # Include our custom CSS
+        # The design is attributed to the sample shiny project - superzip
         includeCSS("styles.css"),
         includeScript("gomap.js")
       ),
@@ -29,22 +30,22 @@ ui <- navbarPage("Superzip", id="nav",
       # Shiny versions prior to 0.11 should use class = "modal" instead.
       absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
         draggable = TRUE, top = 100, left = 50, right = "auto", bottom = "auto",
-        width = 330, height = 500,
+        width = 330, height = 330,
         # panel title.
         h2("Vessel Movement"),
         vessel_input,
         date_input,
         # start_date_input,
         # end_date_input,
-        submitButton("Submit"),
-        other_layer
+        submitButton("Submit")
+        # other_layer
         # add plots within the panel.
         # plotOutput("histCentile", height = 200),
         # plotOutput("scatterCollegeIncome", height = 250)
       ),
 
       tags$div(id="cite",
-        'Data compiled for ', tags$em('Coming Apart: The State of White America, 1960–2010'), ' by Charles Murray (Crown Forum, 2012).'
+        'Data Source @', tags$em('ClipperData LLC.'), 'The App is created by Xiao Wang'
       )
     )
   ),
