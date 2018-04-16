@@ -1,5 +1,5 @@
 library(leaflet)
-source('~/Desktop/workdir/Vessel_Tracking/load_ais.R')
+source('load_ais.R')
 
 poi <- get_poi()
 
